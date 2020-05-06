@@ -116,6 +116,7 @@ const init = () => {
                 elements[task.key].status = task.status;
             })
             counter.textContent = elements.length;
+
             renderList();
         } else {
             console.log('Wystąpił bląd w polączeniu.');
