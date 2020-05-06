@@ -10,7 +10,7 @@ Project made as part of my JavaScript learning.
 
 ## Images
 ![Full](./img/1.png)
-![Search](./img/1.png)
-![Done activity](./img/1.png)
+![Search](./img/2.png)
+![Done activity](./img/3.png)
 
 
