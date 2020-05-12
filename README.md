@@ -1,15 +1,20 @@
 # js-todoapp
 To do list, to do app 
 
-## Technologies
-JavaScript,
-CSS
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Screenshots](#screenshots)
 
 ## General info
 The application allows you to add elements, delete and change the status.
 Project made as part of my JavaScript learning.
 
-## Images
+## Technologies
+JavaScript,
+CSS
+
+## Screenshots
 Full application
 ![Full](./img/1.png)
 Item search option
