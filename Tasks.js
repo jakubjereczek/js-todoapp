@@ -1,8 +1,9 @@
-
 class Tasks {
     constructor() {
         this.status = ["active", "done"];
+        this.typeOptions = ["wazne", "neutralne", "niewazne"];
         this.tasksList = [];
+
         this.getElements = function () {
             return this.tasksList;
         }
@@ -12,12 +13,19 @@ class Tasks {
         this.getLenght = function () {
             return this.tasksList.length;
         }
-
+        this.getArrayID = function (id) {
+            const arrayID = this.tasksList.findIndex(x => x.id === id);
+            return arrayID;
+        }
+        this.getType = function (id) {
+            return this.typeOptions[this.tasksList[this.getArrayID(id)].type];
+        }
     }
 
-    addTask(id, value, status = this.status[0]) {
-        console.log(id, value, status);
-        if (!value) {
+
+    addTask(id, value, status = this.status[0], type = 1) {
+        console.log(id, value, status, type);
+        if (!value || (type > this.typeOptions.length)) {
             return;
         }
         for (const element of this.tasksList) {
@@ -28,17 +36,18 @@ class Tasks {
         let newTask = {
             id: id,
             value: value,
-            status: status
+            status: status,
+            type: type
         }
         this.tasksList.push(newTask);
+        console.log(this.tasksList);
     }
 
     deleteTask(id) {
-        console.log(this.tasksList[id]);
-        if (this.tasksList[id].status === this.status[1]) {
-            this.tasksList.splice(id, 1);
+        if (this.tasksList[this.getArrayID(id)].status === this.status[1]) {
+            this.tasksList.splice(this.getArrayID(id), 1);
         } else {
-            this.changeStatus(id);
+            this.changeStatus(this.getArrayID(id));
             return;
         }
     }
@@ -48,13 +57,15 @@ class Tasks {
             this.tasksList[id].status = this.status[1];
         }
     }
-
     findTasks(text) {
         const result = this.tasksList.filter(e => e.value.toLowerCase().includes(text.toLowerCase()));
         return result;
     }
 
 
+
 }
 
 export default Tasks;
+
+

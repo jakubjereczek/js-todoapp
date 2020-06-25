@@ -82,9 +82,6 @@ ul {
 }
 
 li {
-	background: #ff7f50;
-	border-top: 2px solid #ffbca4;
-	border-bottom: 2px solid #ff753a;
 	border-radius: 5px;
 	padding: 6px 12px 6px 18px;
 	min-height: 30px;
@@ -108,6 +105,12 @@ li[data-type="niewazne"] {
 	background: #00a000;
 	border-top: 2px solid #00c800;
 	border-bottom: 2px solid #008000;
+}
+
+li[data-type="neutralne"] {
+	background: #ff7f50;
+	border-top: 2px solid #ffbca4;
+	border-bottom: 2px solid #ff753a;
 }
 
 li button {

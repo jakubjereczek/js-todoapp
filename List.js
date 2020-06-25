@@ -1,13 +1,8 @@
-
 import Tasks from './Tasks.js';
-import Type from './Type.js';
-
-
 
 class List {
     constructor() {
         this.tasks = new Tasks();
-        this.type = new Type();
 
         this.inputAdd = document.querySelector(".add");
         this.inputSearch = document.querySelector(".search");
@@ -25,15 +20,17 @@ class List {
     }
 
     deleteElement() {
+        console.log('WYKONUJE DELETE');
+
         const index = event.target.parentNode.dataset.id * 1; // konwersja pod number
         this.tasks.deleteTask(index);
+
         this.render();
     }
 
     addElement() {
-        this.tasks.addTask(this.tasks.getLenght(), this.inputAdd.value, this.tasks.status[0]);
         const selected = this.typeSelect.options[this.typeSelect.selectedIndex].value * 1; // konwersja
-        this.type.setType(selected, this.tasks.getLenght()); // blad w nadawaniu id 
+        this.tasks.addTask(this.tasks.tasksList[this.tasks.getLenght() - 1].id + 1, this.inputAdd.value, this.tasks.status[0], selected);
         this.render();
     }
 
@@ -43,24 +40,29 @@ class List {
     }
     render(elementy = this.tasks.tasksList) {
         this.ul.textContent = "";
-        elementy.forEach((task, index) => {
+
+        console.log('Wielkosc tablicy ' + elementy.length);
+
+        elementy.forEach((task) => {
             const newElement = document.createElement("li");
             newElement.textContent = task.value;
 
             const delElement = document.createElement("button")
             if (task.status == "active") {
+                console.log('TASK ID:' + task.id);
+                newElement.dataset.type = this.tasks.getType(task.id);
                 delElement.textContent = "✓";
             } else {
+                newElement.dataset.type = "";
+
                 delElement.textContent = "✕";
             }
             newElement.insertBefore(delElement, newElement.firstChild);
 
             delElement.addEventListener("click", this.deleteElement.bind(this));
 
-            newElement.dataset.id = index;
+            newElement.dataset.id = task.id;
             newElement.dataset.status = task.status;
-            console.log(this.type.tasks);
-            newElement.dataset.type = this.type.getType(this.type.tasks[index].type);
 
             this.ul.appendChild(newElement);
 
@@ -79,9 +81,7 @@ class List {
                 const data = JSON.parse(this.response);
 
                 data.forEach(task => {
-                    that.tasks.addTask(that.tasks.getLenght(), task.text, task.status);
-                    that.type.setType(task.type, that.tasks.getLenght());
-
+                    that.tasks.addTask(task.key, task.text, task.status, task.type);
                 })
                 that.render();
             } else {

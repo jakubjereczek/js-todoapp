@@ -8,10 +8,10 @@ To do list, to do app
 
 ## General info
 The application allows you to add elements, delete and change the status.
-Project made as part of my JavaScript learning.
+Project made as part of my JavaScript learning. 
 
 ## Technologies
-JavaScript,
+JavaScript (ES6),
 CSS
 
 ## Screenshots
@@ -21,5 +21,10 @@ Item search option
 ![Search](./img/2.png)
 active and completed (ready to delete) items
 ![Done activity](./img/3.png)
+
+in the new version I added a task type
+![Type](./img/newversion.png)
+
+
 
 
