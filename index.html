@@ -21,6 +21,11 @@
                 <h3>Dodaj nowy element do listy</h3>
             </label>
             <input type="text" id="newElement" class="add">
+            <select id="type">
+                <option value="0">ważne</option>
+                <option value="1" selected>nieutralne</option>
+                <option value="2">nieważne</option>
+            </select>
             <button class="submit">Dodaj nowy element</button>
 
             <h3>Wyszukaj element</h3>
@@ -32,12 +37,8 @@
             </ul>
         </div>
     </div>
-    <script src="Tasks.js"></script>
 
-    <script src="List.js"></script>
-    <script src="code.js"></script>
-
-
+    <script src="code.js" type="module"></script>
 
 </body>
 

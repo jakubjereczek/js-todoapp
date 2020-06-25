@@ -1,6 +1,13 @@
+
+import Tasks from './Tasks.js';
+import Type from './Type.js';
+
+
+
 class List {
     constructor() {
         this.tasks = new Tasks();
+        this.type = new Type();
 
         this.inputAdd = document.querySelector(".add");
         this.inputSearch = document.querySelector(".search");
@@ -11,6 +18,7 @@ class List {
 
         this.button.addEventListener("click", this.addElement.bind(this));
         this.inputSearch.addEventListener("input", this.searchElements.bind(this));
+        this.typeSelect = document.querySelector(".box #type");
 
         this.init();
         this.render();
@@ -23,8 +31,9 @@ class List {
     }
 
     addElement() {
-        const tasks = this.tasks;
-        tasks.addTask(this.tasks.getLenght(), this.inputAdd.value, this.tasks.status[0]);
+        this.tasks.addTask(this.tasks.getLenght(), this.inputAdd.value, this.tasks.status[0]);
+        const selected = this.typeSelect.options[this.typeSelect.selectedIndex].value * 1; // konwersja
+        this.type.setType(selected, this.tasks.getLenght()); // blad w nadawaniu id 
         this.render();
     }
 
@@ -50,6 +59,8 @@ class List {
 
             newElement.dataset.id = index;
             newElement.dataset.status = task.status;
+            console.log(this.type.tasks);
+            newElement.dataset.type = this.type.getType(this.type.tasks[index].type);
 
             this.ul.appendChild(newElement);
 
@@ -69,6 +80,8 @@ class List {
 
                 data.forEach(task => {
                     that.tasks.addTask(that.tasks.getLenght(), task.text, task.status);
+                    that.type.setType(task.type, that.tasks.getLenght());
+
                 })
                 that.render();
             } else {
@@ -78,3 +91,5 @@ class List {
         request.send();
     }
 }
+
+export default List;

@@ -1,3 +1,4 @@
+
 class Tasks {
     constructor() {
         this.status = ["active", "done"];
@@ -55,3 +56,5 @@ class Tasks {
 
 
 }
+
+export default Tasks;
