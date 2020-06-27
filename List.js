@@ -16,7 +16,6 @@ class List {
         this.typeSelect = document.querySelector(".box #type");
 
         this.init();
-        this.render();
     }
 
     deleteElement() {
@@ -31,6 +30,7 @@ class List {
     addElement() {
         const selected = this.typeSelect.options[this.typeSelect.selectedIndex].value * 1; // konwersja
         this.tasks.addTask(this.tasks.tasksList[this.tasks.getLenght() - 1].id + 1, this.inputAdd.value, this.tasks.status[0], selected);
+
         this.render();
     }
 
@@ -38,7 +38,7 @@ class List {
         const wyszukaneElementy = this.tasks.findTasks(event.target.value);
         this.render(wyszukaneElementy);
     }
-    render(elementy = this.tasks.tasksList) {
+    async render(elementy = this.tasks.tasksList) {
         this.ul.textContent = "";
 
         console.log('Wielkosc tablicy ' + elementy.length);
@@ -71,25 +71,19 @@ class List {
 
     }
     // load elements from tasks.json 
-    init = () => {
-        const that = this;
-        const request = new XMLHttpRequest();
-
-        request.open('GET', '../tasks.json', true);
-        request.onload = function () {
-            if (request.status >= 200 && request.status < 400) {
-                const data = JSON.parse(this.response);
-
-                data.forEach(task => {
-                    that.tasks.addTask(task.key, task.text, task.status, task.type);
+    init() {
+        fetch('./tasks.json')
+            .then(response => response.json())
+            .then(tasks => {
+                tasks.forEach(task => {
+                    this.tasks.addTask(task.key, task.text, task.status, task.type);
+                    this.render(); // docelowo w innym miejscu, ale metoda jest asynchroniczna wyzej
                 })
-                that.render();
-            } else {
-                console.log('Wystąpił bląd w polączeniu.');
-            }
-        }
-        request.send();
+
+            })
+            .catch(error => console.log(error));
     }
+
 }
 
 export default List;
