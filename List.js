@@ -29,8 +29,14 @@ class List {
 
     addElement() {
         const selected = this.typeSelect.options[this.typeSelect.selectedIndex].value * 1; // konwersja
-        this.tasks.addTask(this.tasks.tasksList[this.tasks.getLenght() - 1].id + 1, this.inputAdd.value, this.tasks.status[0], selected);
 
+        if (this.tasks.getLenght() === 0) {
+            this.tasks.addTask(1, this.inputAdd.value, this.tasks.status[0], selected);
+
+        } else {
+            this.tasks.addTask(this.tasks.tasksList[this.tasks.getLenght() - 1].id + 1, this.inputAdd.value, this.tasks.status[0], selected);
+
+        }
         this.render();
     }
 
@@ -91,13 +97,14 @@ class List {
 
         // localStorage - ładowanie danych z przeglądarki
         const data = JSON.parse(localStorage.getItem('data'));
-        console.log(data);
-        data.forEach(task => {
-            this.tasks.addTask(task.id, task.value, task.status, task.type);
-            if (this.tasks.getLenght() === data.length) {
-                this.render();
-            }
-        })
+        if (data) {
+            data.forEach(task => {
+                this.tasks.addTask(task.id, task.value, task.status, task.type);
+                if (this.tasks.getLenght() === data.length) {
+                    this.render();
+                }
+            })
+        }
     }
 
 }
